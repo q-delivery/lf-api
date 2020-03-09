@@ -1,0 +1,15 @@
+{
+    "name": "gansel-rechtsanwaelte/lf-api",
+    "type": "library",
+    "require": {
+        "php": "^7.3"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Oskar Stark",
+            "email": "oskarstark@googlemail.com"
+        }
+    ],
+    "minimum-stability": "stable"
+}
