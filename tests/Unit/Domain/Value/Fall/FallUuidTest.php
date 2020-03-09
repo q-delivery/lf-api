@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Gansel\LF\Api\Domain\Value\Fall;
+namespace Gansel\LF\Api\Tests\Unit\Domain\Value\Fall;
 
+use Gansel\LF\Api\Domain\Value\Fall\FallUuid;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 

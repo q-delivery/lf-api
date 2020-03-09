@@ -28,6 +28,9 @@ final class FallApi
         $this->client = $client;
     }
 
+    /**
+     * @param array<mixed> $payload
+     */
     public function add(array $payload): FallUuid
     {
         Assert::notEmpty($payload);
@@ -43,6 +46,12 @@ final class FallApi
         return FallUuid::fromString($response->toArray()['id']);
     }
 
+    /**
+     * @param FallUuid $fallUuid The UUID of the Fall you want to add files to
+     * @param string   $filepath The absolute filepath
+     *
+     * @return array<int, string>
+     */
     public function uploadFile(FallUuid $fallUuid, string $filepath, bool $markAsNew = false): array
     {
         Assert::fileExists($filepath);
