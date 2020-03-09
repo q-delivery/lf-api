@@ -12,6 +12,6 @@ $client = HttpClient::create([
     'auth_basic' => [$username, $password],
 ]);
 
-$fallApi = new FallApi($client, $baseUri);
+$fallApi = new FallApi($baseUri, $client);
 $fallApi->add(/* ... */);
 ```
