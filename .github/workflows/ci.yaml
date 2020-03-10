@@ -1,0 +1,99 @@
+name: "PHP"
+
+on:
+    pull_request:
+    push:
+        branches:
+            - "develop"
+            - "master"
+
+env:
+    REQUIRED_PHP_EXTENSIONS: "ctype, filter, hash, iconv, json"
+
+jobs:
+    coding-standards:
+        name: "Coding Standards"
+
+        runs-on: "ubuntu-latest"
+
+        strategy:
+            matrix:
+                php-version:
+                    - "7.3"
+
+        steps:
+            - name: "Checkout"
+              uses: "actions/checkout@v2"
+
+            - name: "Install PHP with extensions"
+              uses: "shivammathur/setup-php@v2"
+              with:
+                  coverage: "none"
+                  extensions: "${{ env.REQUIRED_PHP_EXTENSIONS }}"
+                  php-version: "${{ matrix.php-version }}"
+
+            - name: "Validate composer.json"
+              run: "composer validate"
+
+            - name: "Install dependencies with composer"
+              run: "composer install --no-interaction --no-progress --no-suggest --no-scripts"
+
+            - name: "Composer normalize"
+              run: "composer normalize"
+
+            - name: "Check code style"
+              run: "composer cs-check"
+
+    static-code-analysis:
+        name: "Static Code Analysis"
+
+        runs-on: "ubuntu-latest"
+
+        strategy:
+            matrix:
+                php-version:
+                    - "7.3"
+
+        steps:
+            - name: "Checkout"
+              uses: "actions/checkout@v2"
+
+            - name: "Install PHP with extensions"
+              uses: "shivammathur/setup-php@v2"
+              with:
+                  coverage: "none"
+                  extensions: "${{ env.REQUIRED_PHP_EXTENSIONS }}"
+                  php-version: "${{ matrix.php-version }}"
+
+            - name: "Install dependencies with composer"
+              run: "composer install --no-interaction --no-progress --no-suggest"
+
+            - name: "Static code analysis"
+              run: "composer phpstan"
+
+    tests:
+        name: "Tests"
+
+        runs-on: "ubuntu-latest"
+
+        strategy:
+            matrix:
+                php-version:
+                    - "7.3"
+
+        steps:
+            - name: "Checkout"
+              uses: "actions/checkout@v2"
+
+            - name: "Install PHP with extensions"
+              uses: "shivammathur/setup-php@v2"
+              with:
+                coverage: "pcov"
+                extensions: "${{ env.REQUIRED_PHP_EXTENSIONS }}"
+                php-version: "${{ matrix.php-version }}"
+
+            - name: "Install dependencies with composer"
+              run: "composer install --no-interaction --no-progress --no-suggest --no-scripts"
+
+            - name: "Run unit tests"
+              run: "composer test"
