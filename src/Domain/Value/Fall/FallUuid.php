@@ -30,4 +30,12 @@ final class FallUuid
     {
         return $this->uuid->toString();
     }
+
+    public function toIri(): string
+    {
+        return \Safe\sprintf(
+            '/faelle/%s',
+            $this->uuid->toString()
+        );
+    }
 }
