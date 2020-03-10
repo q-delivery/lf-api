@@ -19,6 +19,7 @@
         "webmozart/assert": "^1.7"
     },
     "require-dev": {
+        "ergebnis/composer-normalize": "^2.2",
         "friendsofphp/php-cs-fixer": "^2.16",
         "phpstan/extension-installer": "^1.0",
         "phpstan/phpstan": "^0.12.14",
@@ -43,6 +44,9 @@
     "scripts": {
         "cs": [
             "vendor/bin/php-cs-fixer fix"
+        ],
+        "cs-check": [
+            "vendor/bin/php-cs-fixer fix --diff --diff-format=udiff --dry-run --verbose"
         ],
         "phpstan": [
             "@php -d memory_limit=-1 vendor/bin/phpstan analyse -c phpstan.neon --no-progress"
