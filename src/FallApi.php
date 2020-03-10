@@ -43,7 +43,7 @@ final class FallApi
             ]
         );
 
-        return FallUuid::fromString($response->toArray()['id']);
+        return FallUuid::fromString($response->toArray(true)['id']);
     }
 
     /**
@@ -86,6 +86,49 @@ final class FallApi
             ]
         );
 
-        return $response->toArray();
+        return $response->toArray(true);
+    }
+
+    public function applyTransition(FallUuid $fallUuid, string $transition): bool
+    {
+        Assert::stringNotEmpty($transition);
+
+        $fall = $this->get($fallUuid);
+        Assert::notEmpty($fall);
+        Assert::keyExists($fall, 'version');
+
+        $response = $this->client->request(
+            'PUT',
+            \Safe\sprintf(
+                '%s/faelle/%s',
+                $this->baseUri,
+                $fallUuid->toString()
+            ),
+            [
+                'json' => [
+                    'version' => $fall['version'] + 1,
+                    'statusuebergang' => $transition,
+                ],
+            ]
+        );
+
+        return 200 === $response->getStatusCode() ? true : false;
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function get(FallUuid $fallUuid): array
+    {
+        $response = $this->client->request(
+            'GET',
+            \Safe\sprintf(
+                '%s/faelle/%s',
+                $this->baseUri,
+                $fallUuid->toString()
+            ),
+        );
+
+        return $response->toArray(true);
     }
 }
