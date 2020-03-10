@@ -13,6 +13,18 @@ final class FallUuidTest extends TestCase
     /**
      * @test
      */
+    public function toIri(): void
+    {
+        $uuid = FallUuid::fromString(
+            '2898b905-7b20-49c3-8c71-08b6f60995ea'
+        );
+
+        self::assertSame('/faelle/2898b905-7b20-49c3-8c71-08b6f60995ea', $uuid->toIri());
+    }
+
+    /**
+     * @test
+     */
     public function fromString(): void
     {
         $uuid = FallUuid::fromString(
