@@ -23,7 +23,8 @@
         "phpstan/extension-installer": "^1.0",
         "phpstan/phpstan": "^0.12.14",
         "phpstan/phpstan-webmozart-assert": "^0.12.2",
-        "phpunit/phpunit": "^9.0"
+        "phpunit/phpunit": "^9.0",
+        "thecodingmachine/phpstan-safe-rule": "^1.0"
     },
     "config": {
         "sort-packages": true
