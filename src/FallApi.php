@@ -106,7 +106,7 @@ final class FallApi
             ),
             [
                 'json' => [
-                    'version' => $fall['version'] + 1,
+                    'version' => $fall['version'],
                     'statusuebergang' => $transition,
                 ],
             ]
