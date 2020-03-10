@@ -11,8 +11,10 @@ final class DarlehenApi extends Api
 {
     /**
      * @param array<mixed> $payload
+     *
+     * @return array<mixed>
      */
-    public function add(FallUuid $fallUuid, array $payload): FallUuid
+    public function add(FallUuid $fallUuid, array $payload): array
     {
         Assert::notEmpty($payload);
         Assert::keyNotExists($payload, 'fall');
@@ -27,6 +29,6 @@ final class DarlehenApi extends Api
             ]
         );
 
-        return FallUuid::fromString($response->toArray(true)['id']);
+        return $response->toArray(true);
     }
 }
