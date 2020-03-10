@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Gansel\LF\Api;
 
-use Gansel\LF\Api\Domain\Value\Fall\FallUuid;
-use Symfony\Component\Mime\Part\DataPart;
-use Symfony\Component\Mime\Part\Multipart\FormDataPart;
 use function Symfony\Component\String\u;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Webmozart\Assert\Assert;
