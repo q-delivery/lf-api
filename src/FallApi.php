@@ -21,7 +21,7 @@ final class FallApi
         Assert::stringNotEmpty($baseUri);
 
         if (u($baseUri)->trim()->endsWith('/')) {
-            throw new \InvalidArgumentException('$baseUrl should not end with a slash.');
+            throw new \InvalidArgumentException('$baseUri should not end with a slash.');
         }
 
         $this->baseUri = $baseUri;
