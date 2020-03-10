@@ -114,4 +114,71 @@ final class FallApi extends Api
 
         return $response->toArray(true);
     }
+
+    /**
+     * @param array<mixed> $payload
+     *
+     * @return array<mixed>
+     */
+    public static function modifyPayload(array $payload): array
+    {
+        if (isset($payload['darlehensnehmer']['person1'])) {
+            $additionalData = self::extractAndRemoveData($payload, 'darlehensnehmer');
+
+            $payload['darlehensnehmer']['person1'] = array_merge(
+                $payload['darlehensnehmer']['person1'],
+                $additionalData
+            );
+
+            if (isset($payload['darlehensnehmer']['person2'])) {
+                $payload['darlehensnehmer']['person2'] = array_merge(
+                    $payload['darlehensnehmer']['person2'],
+                    $additionalData
+                );
+            }
+        }
+
+        if (isset($payload['makler']['person'])) {
+            $additionalData = self::extractAndRemoveData($payload, 'makler');
+
+            $payload['makler']['person'] = array_merge(
+                $payload['makler']['person'],
+                $additionalData
+            );
+        }
+
+        return $payload;
+    }
+
+    /**
+     * @param array<mixed> $payload
+     *
+     * @return array<mixed>
+     */
+    private static function extractAndRemoveData(array &$payload, string $property): array
+    {
+        Assert::stringNotEmpty($property);
+        Assert::keyExists($payload, $property);
+
+        $keys = [
+            'strasse',
+            'addresszusatz',
+            'plz',
+            'ort',
+            'telefonRufnummer',
+            'mobilRufnummer',
+            'email',
+        ];
+
+        $additionalData = [];
+
+        foreach ($keys as $key) {
+            if (\array_key_exists($key, $payload[$property])) {
+                $additionalData[$key] = $payload[$property][$key];
+                unset($payload[$property][$key]);
+            }
+        }
+
+        return $additionalData;
+    }
 }
