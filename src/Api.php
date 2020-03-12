@@ -10,14 +10,22 @@ use Webmozart\Assert\Assert;
 
 class Api
 {
+    /** @var string */
     protected $baseUri;
+    /** @var HttpClientInterface */
     protected $client;
 
     public function __construct(string $baseUri, HttpClientInterface $client)
     {
+        $baseUri = trim($baseUri);
+
         Assert::stringNotEmpty($baseUri);
 
-        if (u($baseUri)->trim()->endsWith('/')) {
+        if (!(u($baseUri)->startsWith('https://') || u($baseUri)->startsWith('http://'))) {
+            throw new \InvalidArgumentException('$baseUri must start with "https://" or "http://".');
+        }
+
+        if (u($baseUri)->endsWith('/')) {
             throw new \InvalidArgumentException('$baseUri should not end with a slash.');
         }
 
