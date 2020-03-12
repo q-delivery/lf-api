@@ -10,7 +10,9 @@ use Webmozart\Assert\Assert;
 
 class Api
 {
+    /** @var string */
     protected $baseUri;
+    /** @var HttpClientInterface */
     protected $client;
 
     public function __construct(string $baseUri, HttpClientInterface $client)
