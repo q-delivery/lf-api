@@ -37,6 +37,17 @@ jobs:
             - name: "Validate composer.json"
               run: "composer validate"
 
+            - name: "Determine composer cache directory"
+              id: "determine-composer-cache-directory"
+              run: "echo \"::set-output name=directory::$(composer config cache-dir)\""
+
+            - name: "Cache dependencies installed with composer"
+              uses: "actions/cache@v1"
+              with:
+                  path: "${{ steps.determine-composer-cache-directory.outputs.directory }}"
+                  key: "php-${{ matrix.php-version }}-composer-${{ hashFiles('**/composer.json') }}"
+                  restore-keys: "php-${{ matrix.php-version }}-composer-"
+
             - name: "Install dependencies with composer"
               run: "composer install --no-interaction --no-progress --no-suggest --no-scripts"
 
@@ -67,6 +78,17 @@ jobs:
                   extensions: "${{ env.REQUIRED_PHP_EXTENSIONS }}"
                   php-version: "${{ matrix.php-version }}"
 
+            - name: "Determine composer cache directory"
+              id: "determine-composer-cache-directory"
+              run: "echo \"::set-output name=directory::$(composer config cache-dir)\""
+
+            - name: "Cache dependencies installed with composer"
+              uses: "actions/cache@v1"
+              with:
+                  path: "${{ steps.determine-composer-cache-directory.outputs.directory }}"
+                  key: "php-${{ matrix.php-version }}-composer-${{ hashFiles('**/composer.json') }}"
+                  restore-keys: "php-${{ matrix.php-version }}-composer-"
+
             - name: "Install dependencies with composer"
               run: "composer install --no-interaction --no-progress --no-suggest"
 
@@ -93,6 +115,17 @@ jobs:
                 coverage: "pcov"
                 extensions: "${{ env.REQUIRED_PHP_EXTENSIONS }}"
                 php-version: "${{ matrix.php-version }}"
+
+            - name: "Determine composer cache directory"
+              id: "determine-composer-cache-directory"
+              run: "echo \"::set-output name=directory::$(composer config cache-dir)\""
+
+            - name: "Cache dependencies installed with composer"
+              uses: "actions/cache@v1"
+              with:
+                  path: "${{ steps.determine-composer-cache-directory.outputs.directory }}"
+                  key: "php-${{ matrix.php-version }}-composer-${{ hashFiles('**/composer.json') }}"
+                  restore-keys: "php-${{ matrix.php-version }}-composer-"
 
             - name: "Install dependencies with composer"
               run: "composer install --no-interaction --no-progress --no-suggest --no-scripts"
