@@ -39,7 +39,7 @@ final class FallApi extends Api
         $response = $this->client->request(
             'PUT',
             \Safe\sprintf(
-                '%s/faelle/',
+                '%s/faelle/%s',
                 $this->baseUri,
                 $fallUuid->toString()
             ),
