@@ -1,9 +1,9 @@
 # lf-api
 
-| Branch    | PHP                                         |
-|-----------|---------------------------------------------|
-| `master`  | [![PHP][build-status-master-php]][actions]  |
-| `develop` | [![PHP][build-status-develop-php]][actions] |
+| Branch    | PHP                                         | Code Coverage                                        |
+|-----------|---------------------------------------------|------------------------------------------------------|
+| `master`  | [![PHP][build-status-master-php]][actions]  | [![Code Coverage][coverage-status-master]][codecov]  |
+| `develop` | [![PHP][build-status-develop-php]][actions] | [![Code Coverage][coverage-status-develop]][codecov] |
 
 ## Usage
 
@@ -99,5 +99,8 @@ $fallApi->applyTransition(
 
 [build-status-develop-php]: https://github.com/gansel-rechtsanwaelte/lf-api/workflows/PHP/badge.svg?branch=develop
 [build-status-master-php]: https://github.com/gansel-rechtsanwaelte/lf-api/workflows/PHP/badge.svg?branch=master
+[coverage-status-develop]: https://codecov.io/gh/gansel-rechtsanwaelte/lf-api/branch/develop/graph/badge.svg
+[coverage-status-master]: https://codecov.io/gh/gansel-rechtsanwaelte/lf-api/branch/master/graph/badge.svg
 
 [actions]: https://github.com/gansel-rechtsanwaelte/lf/actions
+[codecov]: https://codecov.io/gh/gansel-rechtsanwaelte/lf
