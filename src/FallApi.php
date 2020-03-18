@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Gansel\LF\Api;
 
 use Gansel\LF\Api\Domain\Value\Fall\FallUuid;
+use Gansel\LF\Api\Domain\Value\KfzDarlehen\KfzDarlehenUuid;
 use Symfony\Component\Mime\Part\DataPart;
 use Symfony\Component\Mime\Part\Multipart\FormDataPart;
 use Webmozart\Assert\Assert;
@@ -39,6 +40,35 @@ final class FallApi extends Api
         $fall = $this->get($fallUuid);
         Assert::notEmpty($fall);
         Assert::keyExists($fall, 'version');
+
+        /*
+         * This needs to be done, because Embeddable objects (ORM) needs to be set
+         * completely! Otherwise it would empty all existing, and not updated fields!
+         */
+        if (\array_key_exists('darlehensnehmer', $payload)) {
+            $payload['darlehensnehmer'] = array_merge(
+                $fall['darlehensnehmer'],
+                $payload['darlehensnehmer']
+            );
+        }
+
+        /*
+         * This needs to be done, because Embeddable objects (ORM) needs to be set
+         * completely! Otherwise it would empty all existing, and not updated fields!
+         */
+        if (\array_key_exists('makler', $payload)) {
+            $payload['makler'] = array_merge(
+                $fall['makler'],
+                $payload['makler']
+            );
+        }
+
+        if (\array_key_exists('kfzDarlehen', $payload)) {
+            Assert::keyExists($fall['kfzDarlehen'], 'id');
+
+            $kfzDarlehenUuid = KfzDarlehenUuid::fromString($fall['kfzDarlehen']['id']);
+            $payload['kfzDarlehen']['id'] = $kfzDarlehenUuid->toIri();
+        }
 
         $payload['version'] = $fall['version'];
 
