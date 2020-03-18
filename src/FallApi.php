@@ -14,7 +14,7 @@ final class FallApi extends Api
     /**
      * @param array<mixed> $payload
      */
-    public function add(array $payload): FallUuid
+    public function create(array $payload): FallUuid
     {
         Assert::notEmpty($payload);
 
@@ -27,6 +27,14 @@ final class FallApi extends Api
         );
 
         return FallUuid::fromString($response->toArray(true)['id']);
+    }
+
+    /**
+     * @param array<mixed> $payload
+     */
+    public function add(array $payload): FallUuid
+    {
+        return $this->create($payload);
     }
 
     /**
