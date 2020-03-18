@@ -36,6 +36,12 @@ final class FallApi extends Api
     {
         Assert::notEmpty($payload);
 
+        $fall = $this->get($fallUuid);
+        Assert::notEmpty($fall);
+        Assert::keyExists($fall, 'version');
+
+        $payload['version'] = $fall['version'];
+
         $response = $this->client->request(
             'PUT',
             \Safe\sprintf(
@@ -131,7 +137,7 @@ final class FallApi extends Api
                 '%s/faelle/%s',
                 $this->baseUri,
                 $fallUuid->toString()
-            ),
+            )
         );
 
         return $response->toArray(true);
