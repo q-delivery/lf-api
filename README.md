@@ -16,7 +16,7 @@ $client = HttpClient::create([
 $fallApi = new FallApi($baseUri, $client);
 ```
 
-### Add Fall
+### Create Fall
 ```php
 use Gansel\LF\Api\FallApi;
 
@@ -33,6 +33,26 @@ $fallApi = new FallApi(/* ... */);
 
 $fallApi->get(
     FallUuid::fromString('123-456-789'), // the Fall UUID
+);
+```
+
+
+### Update Fall
+
+**Only works before calling a Transition!**
+
+```php
+use Gansel\LF\Api\Domain\Value\Fall\FallUuid;
+use Gansel\LF\Api\FallApi;
+
+$fallApi = new FallApi(/* ... */);
+
+$fallApi->update(
+    FallUuid::fromString('123-456-789'), // the Fall UUID
+    [
+        'field' => 'value',
+        // ...
+    ]
 );
 ```
 

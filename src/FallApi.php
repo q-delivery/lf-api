@@ -30,6 +30,28 @@ final class FallApi extends Api
     }
 
     /**
+     * @param array<mixed> $payload
+     */
+    public function update(FallUuid $fallUuid, array $payload): FallUuid
+    {
+        Assert::notEmpty($payload);
+
+        $response = $this->client->request(
+            'PUT',
+            \Safe\sprintf(
+                '%s/faelle/',
+                $this->baseUri,
+                $fallUuid->toString()
+            ),
+            [
+                'json' => $payload,
+            ]
+        );
+
+        return FallUuid::fromString($response->toArray(true)['id']);
+    }
+
+    /**
      * @param FallUuid $fallUuid The UUID of the Fall you want to add files to
      * @param string   $filepath The absolute filepath
      *
