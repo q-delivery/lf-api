@@ -21,7 +21,7 @@ $fallApi = new FallApi($baseUri, $client);
 use Gansel\LF\Api\FallApi;
 
 $fallApi = new FallApi(/* ... */);
-$fallApi->add($payload);
+$fallApi->create($payload);
 ```
 
 ### Get Fall
@@ -86,6 +86,6 @@ $fallApi->applyTransition(
 ---
 **NOTE**
 
-`addFall()` and `get()` already return a `FallUuid` which can be used to upload a file or apply a transition!
+`create()` and `get()` already return a `FallUuid` which can be used to upload a file or apply a transition!
 
 ---
