@@ -1,3 +1,10 @@
+# lf-api
+
+| Branch    | PHP                                         |
+|-----------|---------------------------------------------|
+| `master`  | [![PHP][build-status-master-php]][actions]  |
+| `develop` | [![PHP][build-status-develop-php]][actions] |
+
 ## Usage
 
 ### Setup
@@ -89,3 +96,8 @@ $fallApi->applyTransition(
 `create()` and `get()` already return a `FallUuid` which can be used to upload a file or apply a transition!
 
 ---
+
+[build-status-develop-php]: https://github.com/gansel-rechtsanwaelte/lf-api/workflows/PHP/badge.svg?branch=develop
+[build-status-master-php]: https://github.com/gansel-rechtsanwaelte/lf-api/workflows/PHP/badge.svg?branch=master
+
+[actions]: https://github.com/gansel-rechtsanwaelte/lf/actions
