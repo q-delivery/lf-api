@@ -12,6 +12,9 @@ use Webmozart\Assert\Assert;
 
 final class FallApi extends Api
 {
+    private const TRANSITION_EINREICHEN = 'einreichen';
+    private const TRANSITION_TO_EINGABE_MIT_WARTEN = 'to-eingabe-mit-warten';
+
     /**
      * @param array<mixed> $payload
      */
@@ -130,30 +133,14 @@ final class FallApi extends Api
         return $response->toArray(true);
     }
 
-    public function applyTransition(FallUuid $fallUuid, string $transition): bool
+    public function markAsFinished(FallUuid $fallUuid): bool
     {
-        Assert::stringNotEmpty($transition);
+        return $this->applyTransition($fallUuid, self::TRANSITION_EINREICHEN);
+    }
 
-        $fall = $this->get($fallUuid);
-        Assert::notEmpty($fall);
-        Assert::keyExists($fall, 'version');
-
-        $response = $this->client->request(
-            'PUT',
-            \Safe\sprintf(
-                '%s/faelle/%s',
-                $this->baseUri,
-                $fallUuid->toString()
-            ),
-            [
-                'json' => [
-                    'version' => $fall['version'],
-                    'statusuebergang' => $transition,
-                ],
-            ]
-        );
-
-        return 200 === $response->getStatusCode() ? true : false;
+    public function markAsWaitingForAdditionalUserData(FallUuid $fallUuid): bool
+    {
+        return $this->applyTransition($fallUuid, self::TRANSITION_TO_EINGABE_MIT_WARTEN);
     }
 
     /**
@@ -206,6 +193,32 @@ final class FallApi extends Api
         }
 
         return $payload;
+    }
+
+    private function applyTransition(FallUuid $fallUuid, string $transition): bool
+    {
+        Assert::stringNotEmpty($transition);
+
+        $fall = $this->get($fallUuid);
+        Assert::notEmpty($fall);
+        Assert::keyExists($fall, 'version');
+
+        $response = $this->client->request(
+            'PUT',
+            \Safe\sprintf(
+                '%s/faelle/%s',
+                $this->baseUri,
+                $fallUuid->toString()
+            ),
+            [
+                'json' => [
+                    'version' => $fall['version'],
+                    'statusuebergang' => $transition,
+                ],
+            ]
+        );
+
+        return 200 === $response->getStatusCode() ? true : false;
     }
 
     /**
