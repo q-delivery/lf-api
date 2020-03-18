@@ -12,6 +12,7 @@
     "require": {
         "php": "^7.3",
         "ramsey/uuid": "^3.9",
+        "symfony/contracts": "^2.0",
         "symfony/http-client": "^4.4",
         "symfony/mime": "^4.4",
         "symfony/string": "^5.0",
