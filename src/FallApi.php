@@ -241,7 +241,7 @@ final class FallApi extends Api
 
         $keys = [
             'strasse',
-            'addresszusatz',
+            'adresszusatz',
             'plz',
             'ort',
             'telefonRufnummer',
