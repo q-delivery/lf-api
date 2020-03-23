@@ -73,6 +73,7 @@ $fallApi = new FallApi(/* ... */);
 $fallApi->uploadFile(
     FallUuid::fromString('123-456-789'), // the Fall UUID
     '/var/test/testfile.txt',            // use the absolute filepath
+    'Fahrzeugschein',                    // a prefix which can be added to the filename
     false                                // wether this file should be marked as new in LF or not
 );
 ```
