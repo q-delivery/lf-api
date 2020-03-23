@@ -8,6 +8,7 @@ use Gansel\LF\Api\Domain\Value\Fall\FallUuid;
 use Gansel\LF\Api\Domain\Value\KfzDarlehen\KfzDarlehenUuid;
 use Symfony\Component\Mime\Part\DataPart;
 use Symfony\Component\Mime\Part\Multipart\FormDataPart;
+use function Symfony\Component\String\u;
 use Webmozart\Assert\Assert;
 
 final class FallApi extends Api
@@ -91,18 +92,25 @@ final class FallApi extends Api
     }
 
     /**
-     * @param FallUuid $fallUuid The UUID of the Fall you want to add files to
-     * @param string   $filepath The absolute filepath
+     * @param FallUuid    $fallUuid The UUID of the Fall you want to add files to
+     * @param string      $filepath The absolute filepath
+     * @param string|null $prefix   A prefix which should be added before the filename
      *
      * @return array<int, string>
      */
-    public function uploadFile(FallUuid $fallUuid, string $filepath, bool $markAsNew = false): array
+    public function uploadFile(FallUuid $fallUuid, string $filepath, string $prefix = null, bool $markAsNew = false): array
     {
         Assert::fileExists($filepath);
 
+        $name = null;
+
+        if (null !== $prefix && '' !== trim($prefix)) {
+            $name = u(basename($filepath))->ensureStart(\Safe\sprintf('%s ', trim($prefix)))->toString();
+        }
+
         $fields = [
             'files' => [
-                DataPart::fromPath($filepath),
+                DataPart::fromPath($filepath, $name),
             ],
         ];
 
