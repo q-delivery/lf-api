@@ -18,6 +18,7 @@ $password = '...';
 
 $client = HttpClient::create([
     'auth_basic' => [$username, $password],
+    'max_duration' => 0,
 ]);
 
 $fallApi = new FallApi($baseUri, $client);
