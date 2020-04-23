@@ -15,6 +15,7 @@ namespace Gansel\LF\Api;
 
 use Gansel\LF\Api\Domain\Value\Fall\FallUuid;
 use Gansel\LF\Api\Domain\Value\KfzDarlehen\KfzDarlehenUuid;
+use Gansel\LF\Api\Domain\Value\LeadSource;
 use Symfony\Component\Mime\Part\DataPart;
 use Symfony\Component\Mime\Part\Multipart\FormDataPart;
 use function Symfony\Component\String\u;
@@ -31,6 +32,14 @@ final class FallApi extends Api
     public function create(array $payload): FallUuid
     {
         Assert::notEmpty($payload);
+
+        if (!\array_key_exists('leadSource', $payload)) {
+            $payload['leadSource'] = LeadSource::IMMO_Formular()->toString();
+
+            if (\array_key_exists('kfzDarlehen', $payload)) {
+                $payload['leadSource'] = LeadSource::AKW_Formular()->toString();
+            }
+        }
 
         $response = $this->client->request(
             'POST',
