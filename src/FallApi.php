@@ -33,6 +33,10 @@ final class FallApi extends Api
     {
         Assert::notEmpty($payload);
 
+        if (\array_key_exists('leadSource', $payload) && '' === trim($payload['leadSource'])) {
+            $payload['leadSource'] = null;
+        }
+
         if (!\array_key_exists('leadSource', $payload)) {
             $payload['leadSource'] = LeadSource::IMMO_Formular()->toString();
 
