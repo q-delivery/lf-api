@@ -12,8 +12,8 @@
     "require": {
         "php": "^7.3",
         "ramsey/uuid": "^3.9",
-        "symfony/http-client": "^4.4",
-        "symfony/mime": "^4.4",
+        "symfony/http-client": "^4.4 || ^5.1",
+        "symfony/mime": "^4.4 || ^5.1",
         "symfony/string": "^5.0",
         "thecodingmachine/safe": "^1.0",
         "webmozart/assert": "^1.7"
