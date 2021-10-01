@@ -64,6 +64,23 @@ $fallApi->update(
 );
 ```
 
+### Set Leadsale values
+
+```php
+use Gansel\LF\Api\Domain\Value\Fall\FallUuid;
+use Gansel\LF\Api\FallApi;
+
+$fallApi = new FallApi(/* ... */);
+
+$now = new DateTime();
+
+$fallApi->updateLeadsaleValues(
+    FallUuid::fromString('123-456-789'), // the Fall UUID
+    true, // or false, the decision by the User
+    $now, // a \DateTimeInterface, when the decision was made by the User
+);
+```
+
 ### Upload File to Fall
 ```php
 use Gansel\LF\Api\Domain\Value\Fall\FallUuid;
