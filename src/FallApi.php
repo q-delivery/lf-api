@@ -114,6 +114,18 @@ final class FallApi extends Api
     }
 
     /**
+     * @param bool               $decision The decision
+     * @param \DateTimeInterface $decisionDate When the decision was made
+     */
+    public function updateLeadsaleValues(FallUuid $fallUuid, bool $decision, \DateTimeInterface $decisionDate): FallUuid
+    {
+        return $this->update($fallUuid, [
+            'leadsaleDecision' => $decision,
+            'leadsaleDecisionDate' => $decisionDate->format('Y-m-d H:i:s'),
+        ]);
+    }
+
+    /**
      * @param FallUuid    $fallUuid The UUID of the Fall you want to add files to
      * @param string      $filepath The absolute filepath
      * @param string|null $prefix   A prefix which should be added before the filename
