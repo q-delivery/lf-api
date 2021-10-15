@@ -77,7 +77,8 @@ $now = new DateTime();
 $fallApi->updateLeadsaleValues(
     FallUuid::fromString('123-456-789'), // the Fall UUID
     true, // or false, the decision by the User
-    $now, // a \DateTimeInterface, when the decision was made by the User
+    $now, // a \DateTimeInterface, when the decision was made by the user
+    'Please contact him on monday 6pm', // a string, when is the best time to contact the user
 );
 ```
 
