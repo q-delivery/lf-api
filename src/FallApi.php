@@ -116,9 +116,9 @@ final class FallApi extends Api
     /**
      * @param bool               $decision          The decision
      * @param \DateTimeInterface $decisionDate      When the decision was made
-     * @param string             $contactTime       When is the best time to contact der user
-     * @param string             $localPhoneNumber  On which local phone number to call the user
-     * @param string             $mobilePhoneNumber On which mobile phone number to call the user
+     * @param string|null        $contactTime       When is the best time to contact der user
+     * @param string|null        $localPhoneNumber  On which local phone number to call the user
+     * @param string|null        $mobilePhoneNumber On which mobile phone number to call the user
      */
     public function updateLeadsaleValues(
         FallUuid $fallUuid,
