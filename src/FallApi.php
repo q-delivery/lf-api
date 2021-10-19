@@ -117,13 +117,23 @@ final class FallApi extends Api
      * @param bool               $decision     The decision
      * @param \DateTimeInterface $decisionDate When the decision was made
      * @param string             $contactTime  When is the best time to contact der user
+     * @param string             $localPhoneNumber  On which local phone number to call the user
+     * @param string             $mobilePhoneNumber  On which mobile phone number to call the user
      */
-    public function updateLeadsaleValues(FallUuid $fallUuid, bool $decision, \DateTimeInterface $decisionDate, string $contactTime = null): FallUuid
-    {
+    public function updateLeadsaleValues(
+        FallUuid $fallUuid,
+        bool $decision,
+        \DateTimeInterface $decisionDate,
+        string $contactTime = null,
+        string $localPhoneNumber = null,
+        string $mobilePhoneNumber = null,
+    ): FallUuid {
         return $this->update($fallUuid, [
             'leadsaleDecision' => $decision,
             'leadsaleDecisionDate' => $decisionDate->format('Y-m-d H:i:s'),
             'leadsaleContactTime' => $contactTime,
+            'leadsaleTelefonRufnummer' => $localPhoneNumber,
+            'leadsaleMobilRufnummer' => $mobilePhoneNumber,
         ]);
     }
 

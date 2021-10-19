@@ -78,7 +78,9 @@ $fallApi->updateLeadsaleValues(
     FallUuid::fromString('123-456-789'), // the Fall UUID
     true, // or false, the decision by the User
     $now, // a \DateTimeInterface, when the decision was made by the user
-    'Please contact him on monday 6pm', // a string, when is the best time to contact the user
+    'Please contact him on monday 6pm', // a string, when is the best time to contact the user, or null
+    '030 / 123456789', // a string, with a local phone number, or null
+    '0175 / 123456789', // a string, with a mobile phone number, or null
 );
 ```
 
